@@ -37,35 +37,36 @@ export default {
   props: {
     show: {
       type: Boolean,
-      required: true
+      required: true,
     },
     userContacts: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  data () {
+  data() {
     return {
       newUser: {
         name: null,
         phone: null,
-        boss: null
-      }
+        boss: null,
+      },
     }
   },
 
   methods: {
-    closeModal () {
+    closeModal() {
       this.$emit('close')
     },
-    addUser () {
+
+    addUser() {
       if (this.newUser.name && this.newUser.phone) {
-        this.$emit('add', { ...this.newUser })
-        this.newUser = { name: null, phone: null, boss: null }
+        this.$emit('add', { ...this.newUser, })
+        this.newUser = { name: null, phone: null, boss: null, }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

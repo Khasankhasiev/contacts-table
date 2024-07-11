@@ -16,34 +16,38 @@ export default {
   name: 'App',
   components: {
     UserTable,
-    AddUserModal
+    AddUserModal,
   },
 
-  data () {
+  data() {
     return {
       isShownModal: false,
       userContacts: JSON.parse(localStorage.getItem('userContacts')) || [],
       sortKey: null,
       sortOrders: {
-        name: 1
-      }
+        name: 1,
+      },
     }
   },
 
   methods: {
-    toggleModal () {
+
+    toggleModal() {
       this.isShownModal = !this.isShownModal
     },
-    addUser (newUser) {
+
+    addUser(newUser) {
       newUser.id = Date.now()
       this.userContacts.push(newUser)
       this.saveContacts()
       this.isShownModal = false
     },
-    saveContacts () {
+
+    saveContacts() {
       localStorage.setItem('userContacts', JSON.stringify(this.userContacts))
     },
-    sortContacts (key) {
+
+    sortContacts(key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
       this.userContacts.sort((a, b) => {
@@ -51,17 +55,17 @@ export default {
         if (a[key] < b[key]) return -1 * this.sortOrders[key]
       })
       this.saveContacts()
-    }
+    },
   },
 
   watch: {
     userContacts: {
-      handler () {
+      handler() {
         this.saveContacts()
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 }
 </script>
 

@@ -32,22 +32,25 @@ export default {
   props: {
     userContacts: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
-    nestedContacts () {
+    nestedContacts() {
       const map = new Map()
+
       this.userContacts.forEach((userContact) => {
         userContact.children = []
         map.set(userContact.id, userContact)
       })
 
       const result = []
+
       this.userContacts.forEach((userContact) => {
         if (userContact.boss) {
           const boss = map.get(userContact.boss)
+
           if (boss) {
             userContact.level = (boss.level || 0) + 1
             boss.children.push(userContact)
@@ -63,26 +66,29 @@ export default {
       const flatten = (userContacts) => {
         return userContacts.reduce((acc, userContact) => {
           acc.push(userContact)
+
           if (userContact.children.length) {
             acc = acc.concat(flatten(userContact.children))
           }
+
           return acc
         }, [])
       }
 
       return flatten(result)
-    }
+    },
   },
 
   methods: {
-    getContactName (id) {
+    getContactName(id) {
       const userContact = this.userContacts.find((c) => c.id === id)
       return userContact ? userContact.name : null
     },
-    sort (key) {
+
+    sort(key) {
       this.$emit('sort', key)
-    }
-  }
+    },
+  },
 }
 </script>
 
