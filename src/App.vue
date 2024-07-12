@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <button class="add-button" @click="toggleModal">Добавить пользователя</button>
-
+    <MainButton @toggle-modal="toggleModal"/>
     <UserTable :userContacts="userContacts" @sort="sortContacts" />
 
     <AddUserModal :show="isShownModal" :userContacts="userContacts" @close="toggleModal" @add="addUser" />
@@ -11,12 +10,14 @@
 <script>
 import UserTable from './components/UserTable.vue'
 import AddUserModal from './components/AddUserModal.vue'
+import MainButton from './components/MainButton.vue'
 
 export default {
   name: 'App',
   components: {
     UserTable,
     AddUserModal,
+    MainButton,
   },
 
   data() {
@@ -69,27 +70,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Arial, sans-serif;
   padding: 20px;
-}
-
-.add-button {
-  background-color: rgb(0, 152, 121);
-  padding: 8px 14px;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 5ms;
-}
-
-.add-button:hover {
-  background-color: #1d8b75;
-}
-
-.add-button:active {
-  box-shadow: 0 0 5px rgb(0, 152, 121, 0.5);
 }
 </style>
